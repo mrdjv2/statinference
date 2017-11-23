@@ -1,0 +1,68 @@
+---
+title: "Tooth Growth"
+author: "Daniel Jungen"
+date: "23 November 2017"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## ToothGrowth dataset
+
+According to https://stat.ethz.ch/R-manual/R-devel/library/datasets/html/ToothGrowth.html the ToothGrowth dataset is described as follows:
+
+"The response is the length of odontoblasts (cells responsible for tooth growth) in 60 guinea pigs. Each animal received one of three dose levels of vitamin C (0.5, 1, and 2 mg/day) by one of two delivery methods, (orange juice or ascorbic acid (a form of vitamin C and coded as VC)."
+
+It is formatted as follows:
+
+"A data frame with 60 observations on 3 variables.
+
+[,1] 	len 	numeric 	Tooth length
+
+[,2] 	supp 	factor 	Supplement type (VC or OJ).
+
+[,3] 	dose 	numeric 	Dose in milligrams/day "
+
+
+First we should check the different levels in the variables "supp" and "dose":
+
+```{r}
+unique(ToothGrowth$supp)
+
+unique(ToothGrowth$dose)
+
+```
+
+As stated in the description we see two different levels of supplement types (OJ and VC) and we also see three different doses (0.5, 1.0 and 2.0).
+
+The interesting questions in that context are
+
+1. Does the supplement type have an influence on the tooth length?
+
+2. Does the dose have an influence on the tooth length?
+
+
+First we calculate the mean of the tooth length per supplement type:
+
+```{r}
+aggregate(ToothGrowth[,1], list(ToothGrowth$supp), mean)
+```
+
+And now the mean of the tooth length per dose:
+
+```{r}
+aggregate(ToothGrowth[,1], list(ToothGrowth$dose), mean)
+```
+
+The means suggest that the orange juice is the better supplement for bigger teeth and the higher the dose the bigger the teeth.
+
+# Test 1: Does orange juice lead to bigger teeth?
+
+$H_0=\text{OJ leads to bigger teeth vs. } H_1 = \text{OJ does not lead to bigger teeth}$
+
+
+# Test 2: A higher dose of vitamin c leads to bigger teeth?
+
+$H_0=\text{A higher dose of vitamin c leads to bigger teeth vs. } H_1 = \text{A higher dose of vitamin c does not lead to bigger teeth}$
